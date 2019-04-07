@@ -14,7 +14,7 @@ public class FileReadingServiceTest {
         FileRepositoryMock fileRepositoryMock = new FileRepositoryMock();
         FileReadingService fileReadingService = new FileReadingServiceImpl(fileRepositoryMock);
         String fileName = "filename";
-        fileReadingService.readFile(fileName);
+        fileReadingService.getLine(fileName);
         Assert.assertSame(fileName, fileRepositoryMock.getInputFileName());
     }
 
@@ -27,7 +27,7 @@ public class FileReadingServiceTest {
         fileRepositoryMock.setLines(lines);
         FileReadingService fileReadingService = new FileReadingServiceImpl(fileRepositoryMock);
         String fileName = "filename";
-        String result = fileReadingService.readFile(fileName);
+        String result = fileReadingService.getLine(fileName);
         Assert.assertSame(suitableLine, result);
     }
 
@@ -42,7 +42,7 @@ public class FileReadingServiceTest {
         fileRepositoryMock.setLines(lines);
         FileReadingService fileReadingService = new FileReadingServiceImpl(fileRepositoryMock);
         String fileName = "filename";
-        String result = fileReadingService.readFile(fileName);
+        String result = fileReadingService.getLine(fileName);
         Assert.assertSame("", result);
     }
 }

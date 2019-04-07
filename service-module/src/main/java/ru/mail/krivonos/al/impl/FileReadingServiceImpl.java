@@ -16,7 +16,7 @@ public class FileReadingServiceImpl implements FileReadingService {
     }
 
     @Override
-    public String readFile(String fileName) {
+    public String getLine(String fileName) {
         List<String> lines = fileRepository.readFile(fileName);
         return lines.stream()
                 .filter(line -> line.matches(ServiceConstants.NUMBERS_STRING_REGEX))

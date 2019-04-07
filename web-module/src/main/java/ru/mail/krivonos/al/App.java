@@ -16,7 +16,7 @@ public class App {
                 "resources" + File.separator + "file.txt";
         FileRepository fileRepository = FileRepositoryImpl.getInstance();
         FileReadingService fileReadingService = new FileReadingServiceImpl(fileRepository);
-        String result = fileReadingService.readFile(fileName);
+        String result = fileReadingService.getLine(fileName);
         logger.info(result);
     }
 }
