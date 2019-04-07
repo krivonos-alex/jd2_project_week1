@@ -19,14 +19,14 @@ public class FileRepositoryTest {
     @Test
     public void shouldReturnEmptyListForEmptyFile() {
         FileRepository fileRepository = FileRepositoryImpl.getInstance();
-        List<String> lines = fileRepository.readFile("repository-module/src/test/resources/empty-file-test.txt");
+        List<String> lines = fileRepository.readFile("/home/alex/Documents/IT-Academy_JD2/jd2_project_week1/repository-module/src/test/resources/empty-file-test.txt");
         Assert.assertTrue(lines.isEmpty());
     }
 
     @Test
     public void shouldReturnListWithTwoStringsReadingFileWithTwoLines() {
         FileRepository fileRepository = FileRepositoryImpl.getInstance();
-        List<String> lines = fileRepository.readFile("repository-module/src/test/resources/with-two-lines-test.txt");
+        List<String> lines = fileRepository.readFile("/home/alex/Documents/IT-Academy_JD2/jd2_project_week1/repository-module/src/test/resources/with-two-lines-test.txt");
         System.out.println(lines);
         Assert.assertEquals(2, lines.size());
     }
