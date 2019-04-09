@@ -8,11 +8,18 @@ import java.util.List;
 
 public class FileReadingServiceImpl implements FileReadingService {
 
-    private FileRepository fileRepository;
+    private static FileReadingService instance;
 
-    //Public constructor with arguments for better testability
-    public FileReadingServiceImpl(FileRepository fileRepository) {
-        this.fileRepository = fileRepository;
+    private FileRepository fileRepository = FileRepositoryImpl.getInstance();
+
+    private FileReadingServiceImpl() {
+    }
+
+    public static FileReadingService getInstance() {
+        if (instance == null) {
+            instance = new FileReadingServiceImpl();
+        }
+        return instance;
     }
 
     @Override
