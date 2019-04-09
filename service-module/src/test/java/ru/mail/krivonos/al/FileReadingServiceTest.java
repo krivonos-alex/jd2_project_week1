@@ -4,45 +4,47 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.mail.krivonos.al.impl.FileReadingServiceImpl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class FileReadingServiceTest {
 
+    private FileReadingService fileReadingService = FileReadingServiceImpl.getInstance();
+
     @Test
-    public void shouldCallRepositoryMethod() {
-        FileRepositoryMock fileRepositoryMock = new FileRepositoryMock();
-        FileReadingService fileReadingService = new FileReadingServiceImpl(fileRepositoryMock);
-        String fileName = "filename";
-        fileReadingService.getLine(fileName);
-        Assert.assertSame(fileName, fileRepositoryMock.getInputFileName());
+    public void shouldReturnEmptyStringForEmptyFile() {
+        String filename = "/home/alex/Documents/IT-Academy_JD2/jd2_project_week1/service-module/src/test/resources" +
+                "/empty-file-test.txt";
+        String line = fileReadingService.getLine(filename);
+        Assert.assertEquals("", line);
     }
 
     @Test
-    public void shouldReturnStringFromListDuePattern() {
-        FileRepositoryMock fileRepositoryMock = new FileRepositoryMock();
-        List<String> lines = new ArrayList<>();
-        String suitableLine = "2,3";
-        lines.add(suitableLine);
-        fileRepositoryMock.setLines(lines);
-        FileReadingService fileReadingService = new FileReadingServiceImpl(fileRepositoryMock);
-        String fileName = "filename";
-        String result = fileReadingService.getLine(fileName);
-        Assert.assertSame(suitableLine, result);
+    public void shouldReturnFromFileStringWithCommaSeparator() {
+        String filename = "/home/alex/Documents/IT-Academy_JD2/jd2_project_week1/service-module/src/test/resources" +
+                "/with-comma-separator-test.txt";
+        String line = fileReadingService.getLine(filename);
+        Assert.assertEquals("2,3", line);
     }
 
     @Test
-    public void shouldReturnEmptyStringForAllUnsuitableLines() {
-        FileRepositoryMock fileRepositoryMock = new FileRepositoryMock();
-        List<String> lines = new ArrayList<>();
-        String unsuitableLine1 = "2, 3";
-        String unsuitableLine2 = "2 2";
-        lines.add(unsuitableLine1);
-        lines.add(unsuitableLine2);
-        fileRepositoryMock.setLines(lines);
-        FileReadingService fileReadingService = new FileReadingServiceImpl(fileRepositoryMock);
-        String fileName = "filename";
-        String result = fileReadingService.getLine(fileName);
-        Assert.assertSame("", result);
+    public void shouldReturnFromFileStringWithVerticalLineSeparator() {
+        String filename = "/home/alex/Documents/IT-Academy_JD2/jd2_project_week1/service-module/src/test/resources" +
+                "/with-vertical-line-separator-test.txt";
+        String line = fileReadingService.getLine(filename);
+        Assert.assertEquals("2|3", line);
+    }
+
+    @Test
+    public void shouldReturnFromFileStringWithColonSeparator() {
+        String filename = "/home/alex/Documents/IT-Academy_JD2/jd2_project_week1/service-module/src/test/resources" +
+                "/with-colon-separator-test.txt";
+        String line = fileReadingService.getLine(filename);
+        Assert.assertEquals("2:3", line);
+    }
+
+    @Test
+    public void shouldReturnEmptyStringFromFileWithNoMatches() {
+        String filename = "/home/alex/Documents/IT-Academy_JD2/jd2_project_week1/service-module/src/test/resources" +
+                "/no-matches-test.txt";
+        String line = fileReadingService.getLine(filename);
+        Assert.assertEquals("", line);
     }
 }

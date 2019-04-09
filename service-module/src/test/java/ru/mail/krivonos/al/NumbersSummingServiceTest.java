@@ -8,46 +8,51 @@ import ru.mail.krivonos.al.impl.NumbersSummingServiceImpl;
 
 public class NumbersSummingServiceTest {
 
-    @Test
-    public void shouldReturnTheSameInstance() {
-        NumbersSummingService numbersSummingServiceFirst = NumbersSummingServiceImpl.getInstance();
-        NumbersSummingService numbersSummingServiceSecond = NumbersSummingServiceImpl.getInstance();
-        Assert.assertSame(numbersSummingServiceFirst, numbersSummingServiceSecond);
-    }
+    private NumbersSummingService numbersSummingService = NumbersSummingServiceImpl.getInstance();
 
     @Test
     public void shouldReturnNumberFromString() {
-        NumbersSummingService numbersSummingService = NumbersSummingServiceImpl.getInstance();
-        Integer result = numbersSummingService.add("1");
-        Integer expected = 1;
-        Assert.assertEquals(expected, result);
+        int result = numbersSummingService.add("1");
+        Assert.assertEquals(1, result);
     }
 
     @Test
-    public void shouldReturnSumOfNumbersFromString() {
-        NumbersSummingService numbersSummingService = NumbersSummingServiceImpl.getInstance();
-        Integer result = numbersSummingService.add("1,2");
-        Integer expected = 3;
-        Assert.assertEquals(expected, result);
+    public void shouldReturnSumOfNumbersFromStringWithCommaSeparator() {
+        int result = numbersSummingService.add("1,2");
+        Assert.assertEquals(3, result);
+    }
+
+    @Test
+    public void shouldReturnSumOfNumbersFromStringWithColonSeparator() {
+        int result = numbersSummingService.add("1:2");
+        Assert.assertEquals(3, result);
+    }
+
+    @Test
+    public void shouldReturnSumOfNumbersFromStringWithVerticalLineSeparator() {
+        int result = numbersSummingService.add("1|2");
+        Assert.assertEquals(3, result);
+    }
+
+    @Test
+    public void shouldReturnSumOfNumbersFromStringWithLineSeparatorAsSeparator() {
+        int result = numbersSummingService.add("1\n2");
+        Assert.assertEquals(3, result);
     }
 
     @Test
     public void shouldReturnZeroForEmptyString() {
-        NumbersSummingService numbersSummingService = NumbersSummingServiceImpl.getInstance();
-        Integer result = numbersSummingService.add("");
-        Integer expected = 0;
-        Assert.assertEquals(expected, result);
+        int result = numbersSummingService.add("");
+        Assert.assertEquals(0, result);
     }
 
     @Test(expected = IllegalStringContentException.class)
     public void shouldThrowIllegalStringContentExceptionForNonRegexMatchingString() {
-        NumbersSummingService numbersSummingService = NumbersSummingServiceImpl.getInstance();
         numbersSummingService.add("1, 2");
     }
 
     @Test(expected = NullArgumentException.class)
     public void shouldThrowNullArgumentExceptionForNullArgument() {
-        NumbersSummingService numbersSummingService = NumbersSummingServiceImpl.getInstance();
         numbersSummingService.add(null);
     }
 
