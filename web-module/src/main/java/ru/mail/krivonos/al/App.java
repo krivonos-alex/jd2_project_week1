@@ -14,8 +14,7 @@ public class App {
     public static void main(String[] args) {
         String fileName = "web-module" + File.separator + "src" + File.separator + "main" + File.separator +
                 "resources" + File.separator + "file.txt";
-        FileRepository fileRepository = FileRepositoryImpl.getInstance();
-        FileReadingService fileReadingService = new FileReadingServiceImpl(fileRepository);
+        FileReadingService fileReadingService = FileReadingServiceImpl.getInstance();
         String result = fileReadingService.getLine(fileName);
         logger.info(result);
     }
