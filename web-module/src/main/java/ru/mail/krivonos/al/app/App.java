@@ -1,7 +1,8 @@
-package ru.mail.krivonos.al;
+package ru.mail.krivonos.al.app;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.mail.krivonos.al.FileReadingService;
 import ru.mail.krivonos.al.impl.FileReadingServiceImpl;
 
 import java.io.File;
